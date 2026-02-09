@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baking Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #fff8f0;
+        }
+        h1, h2 {
+            color: #b5651d;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            background-color: #b5651d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #9c4815;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #ffe4c4;
+        }
+        .correct {
+            color: green;
+        }
+        .wrong {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Baking Quiz</h1>
+    <p>Test your knowledge from the presentation!</p>
+
+    <form id="quizForm">
+        <!-- Questions -->
+		<div class="question">
+    <h2>1. Think about your favorite baked good. Which one do you like the most?</h2>
+    <input type="radio" name="q1" value="Bread"> A) Bread<br>
+    <input type="radio" name="q1" value="Cake"> B) Cake<br>
+    <input type="radio" name="q1" value="Cookies"> C) Cookies<br>
+    <input type="radio" name="q1" value="Pastry"> D) Pastry<br>
+</div>
+
+
+        <div class="question">
+            <h2>2. Which ancient civilization is known for early bread baking?</h2>
+            <input type="radio" name="q2" value="A"> A) Romans<br>
+            <input type="radio" name="q2" value="B"> B) Egyptians<br>
+            <input type="radio" name="q2" value="C"> C) Greeks<br>
+        </div>
+
+        <div class="question">
+            <h2>3. Which ingredient is primarily responsible for structure in cakes?</h2>
+            <input type="radio" name="q3" value="A"> A) Sugar<br>
+            <input type="radio" name="q3" value="B"> B) Flour<br>
+            <input type="radio" name="q3" value="C"> C) Butter<br>
+        </div>
+
+        <div class="question">
+            <h2>4. Which of these tools is essential for measuring ingredients accurately?</h2>
+            <input type="radio" name="q4" value="A"> A) Spoon<br>
+            <input type="radio" name="q4" value="B"> B) Kitchen scale<br>
+            <input type="radio" name="q4" value="C"> C) Whisk<br>
+        </div>
+
+        <div class="question">
+            <h2>5. What is the purpose of kneading dough?</h2>
+            <input type="radio" name="q5" value="A"> A) To mix ingredients<br>
+            <input type="radio" name="q5" value="B"> B) To develop gluten<br>
+            <input type="radio" name="q5" value="C"> C) To cool the dough<br>
+        </div>
+
+        <div class="question">
+            <h2>6. Which of these is NOT a type of baked good?</h2>
+            <input type="radio" name="q6" value="A"> A) Croissant<br>
+            <input type="radio" name="q6" value="B"> B) Biscuit<br>
+            <input type="radio" name="q6" value="C"> C) Soup<br>
+        </div>
+
+        <div class="question">
+            <h2>7. Which trend focuses on avoiding animal products in baking?</h2>
+            <input type="radio" name="q7" value="A"> A) Gluten-free<br>
+            <input type="radio" name="q7" value="B"> B) Vegan<br>
+            <input type="radio" name="q7" value="C"> C) Keto<br>
+        </div>
+
+        <div class="question">
+            <h2>8. Which baked good usually contains chocolate chips?</h2>
+            <input type="radio" name="q8" value="A"> A) Cookies<br>
+            <input type="radio" name="q8" value="B"> B) Bread<br>
+            <input type="radio" name="q8" value="C"> C) Croissant<br>
+        </div>
+
+        <div class="question">
+            <h2>9. What can happen if cake batter is overmixed?</h2>
+            <input type="radio" name="q9" value="A"> A) It becomes light and fluffy<br>
+            <input type="radio" name="q9" value="B"> B) It becomes dense and tough<br>
+            <input type="radio" name="q9" value="C"> C) Nothing changes<br>
+        </div>
+
+        <div class="question">
+            <h2>10. Which of the following statements is true?</h2>
+            <input type="radio" name="q11" value="A"> A) Baking is only about following recipes<br>
+            <input type="radio" name="q11" value="B"> B) Baking combines science, creativity, and skill<br>
+            <input type="radio" name="q11" value="C"> C) Baking does not require any technique<br>
+        </div>
+
+        <input type="submit" value="Submit Answers">
+    </form>
+
+    <div id="result" class="result" style="display:none;"></div>
+
+    <script>
+        const correctAnswers = {
+            q1: "B
+            q2: "B",
+            q3: "B",
+            q4: "B",
+            q5: "B",
+            q6: "C",
+            q7: "B",
+            q8: "A",
+            q9: "B",
+            q10: "B",
+        };
+
+        document.getElementById("quizForm").onsubmit = function(event) {
+            event.preventDefault();
+            let score = 0;
+            let feedback = "<h2>Results:</h2>";
+
+            for (let i = 1; i <= 11; i++) {
+                const qName = "q" + i;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                if (selected) {
+                    if (selected.value === correctAnswers[qName]) {
+                        score++;
+                        feedback += `<p class="correct">Question ${i}: Correct!</p>`;
+                    } else {
+                        feedback += `<p class="wrong">Question ${i}: Wrong! Correct answer: ${correctAnswers[qName]}</p>`;
+                    }
+                } else {
+                    feedback += `<p class="wrong">Question ${i}: No answer selected. Correct answer: ${correctAnswers[qName]}</p>`;
+                }
+            }
+
+            feedback += `<h3>Your score: ${score} / 11</h3>`;
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = feedback;
+            resultDiv.style.display = "block";
+        };
+    </script>
+</body>
+</html>
+
